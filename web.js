@@ -25,6 +25,39 @@ var returnFileData = function(thefileName){
 
 var theFileData= returnFileData(fileName);
 
+//------------------synchronous
+//var Text=fs.readFile(fileName,'utf8',function(err,data){
+//    console.log(data);
+//})
+
+
+//------------------asynchronous
+//var Text=fs.readFileSync(fileName,'utf8');
+//    console.log(data);
+//    return data;
+
+var FileExist = function(thefileName){
+    return fs.existsSync(thefileName);
+
+}
+
+var returnFileData = function(thefileName){
+    if (FileExist(thefileName)==true){
+        var theReturnBuff=fs.readFileSync(thefileName);
+        var buffer= new Buffer(theReturnBuff);
+        var data=buffer.toString('utf8',0,buffer.length);
+        console.log(data);
+        return data;
+    }
+    else{
+        console.log("the file doesn't exist");
+        return "the file doesn't exist";
+    }
+
+}
+
+var theFileData= returnFileData(fileName);
+
 app.get('/', function(request, response) {
     console.log(theFileData);
     response.send(theFileData);
